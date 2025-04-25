@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Business {
+  id          String      @id @default(cuid())
+  userId      String      // Clerk user ID
+  name        String
+  industry    String
+  location    String?
+  keywords    String      // JSON string of keywords
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  competitors Competitor[]
+  adAnalyses  AdAnalysis[]
+}
+
+model Competitor {
+  id          String      @id @default(cuid())
+  businessId  String
+  business    Business    @relation(fields: [businessId], references: [id])
+  name        String
+  platform    String      // e.g., "Facebook", "Instagram", "Google"
+  adAnalyses  AdAnalysis[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model AdAnalysis {
+  id            String    @id @default(cuid())
+  businessId    String
+  business      Business  @relation(fields: [businessId], references: [id])
+  competitorId  String
+  competitor    Competitor @relation(fields: [competitorId], references: [id])
+  platform      String    // e.g., "Facebook", "Instagram", "Google"
+  adType        String    // e.g., "image", "video", "text"
+  content       String    // The actual ad content
+  mediaUrl      String?   // URL to the media if it's an image/video
+  landingPage   String?   // URL to the landing page
+  cta           String?   // Call to action text
+  emotions      String    // JSON string of emotions
+  targetDemographic String? // Inferred target demographic
+  designStyle   String?   // e.g., "minimalist", "vibrant", "premium"
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}

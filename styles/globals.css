@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  min-height: 100vh;
+}
+
+/* Remove Grammarly attributes that cause hydration warnings */
+[data-gr-ext-installed],
+[data-new-gr-c-s-check-loaded] {
+  display: none !important;
+}
+
+/* Improve card design */
+.card {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow-md transition-all duration-200 hover:shadow-lg;
+}
+
+/* Improve button design */
+.button {
+  @apply px-4 py-2 rounded-md font-medium transition-all duration-200 
+         hover:opacity-90 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+/* Improve input design */
+.input {
+  @apply w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 
+         focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400
+         bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100;
+}
+
+/* Improve loading spinner */
+.spinner {
+  @apply animate-spin rounded-full h-8 w-8 border-4 border-gray-200 dark:border-gray-700
+         border-t-blue-500 dark:border-t-blue-400;
+}
+
+/* Improve grid layout */
+.grid-layout {
+  @apply grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+}
+
+/* Improve typography */
+h1 {
+  @apply text-3xl font-bold mb-6;
+}
+
+h2 {
+  @apply text-2xl font-semibold mb-4;
+}
+
+h3 {
+  @apply text-xl font-medium mb-3;
+}
+
+/* Improve spacing */
+.section {
+  @apply py-8 px-4 md:px-6 lg:px-8;
+}
+
+/* Improve transitions */
+.transition-all {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+/* Improve focus states */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400;
+}
+
+/* Improve dark mode */
+.dark {
+  @apply bg-gray-900 text-gray-100;
+}
+
+/* Improve responsive design */
+@media (max-width: 640px) {
+  .section {
+    @apply py-6 px-4;
+  }
+
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+}
